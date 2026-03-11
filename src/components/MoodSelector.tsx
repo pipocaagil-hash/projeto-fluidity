@@ -1,49 +1,78 @@
 import { moods } from "../lib/moods";
 import MoodButton from "./MoodButton";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import type { MoodType } from "../types/mood";
 
 /**
  * Props do componente MoodSelector.
  */
 type MoodSelectorProps = {
+  /**
+   * Função responsável por registrar um novo humor.
+   * Essa função é fornecida pelo hook `useMood`
+   * através da página Emotion.
+   */
   registerMood: (mood: MoodType) => Promise<void>;
 };
 
 /**
  * Componente responsável por permitir que o usuário
  * registre seu humor diário.
+ *
+ * Funcionalidades:
+ * - Exibe opções de humor através de emojis
+ * - Permite selecionar um humor
+ * - Registra o humor utilizando o hook `useMood`
+ * - Redireciona para telas de sucesso ou erro
+ *
+ * @returns Interface de seleção de humor
  */
 export default function MoodSelector({ registerMood }: MoodSelectorProps) {
+  /**
+   * Controle de navegação entre páginas.
+   */
+  const navigate = useNavigate();
 
-  const [selectedMood, setSelectedMood] = useState<MoodType | null>(() => {
-    const savedMood = localStorage.getItem("mood-value");
-    return savedMood ? (savedMood as MoodType) : null;
-  });
+  /**
+   * Estado responsável por armazenar o humor selecionado.
+   */
+  const [selectedMood, setSelectedMood] = useState<MoodType | null>(null);
 
-  const [message, setMessage] = useState<string | null>(null);
-
+  /**
+   * Manipula a seleção de humor pelo usuário.
+   *
+   * @param mood Humor selecionado
+   */
   async function handleSelectMood(mood: MoodType) {
     try {
       setSelectedMood(mood);
 
       await registerMood(mood);
 
-      setSelectedMood(mood);
-      setMessage("Humor registrado com sucesso");
+      navigate("/success");
     } catch {
-      setMessage("Você já registrou seu humor hoje");
+      navigate("/error");
     }
   }
 
   return (
-    <div className="bg-white rounded-xl p-5 shadow-sm border">
+    <div className="bg-white rounded-2xl p-5 border shadow-sm">
 
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">
-        Como você está se sentindo hoje?
-      </h2>
+      {/* Título */}
+      <div className="flex items-center gap-2 mb-4">
 
+        <span className="w-2 h-2 rounded-full bg-green-500"></span>
+
+        <h2 className="text-lg font-semibold text-gray-800">
+          Como você está se sentindo hoje?
+        </h2>
+
+      </div>
+
+      {/* Grid de emoções */}
       <div className="grid grid-cols-3 gap-3">
+
         {moods.map((mood) => (
           <MoodButton
             key={mood.value}
@@ -53,13 +82,8 @@ export default function MoodSelector({ registerMood }: MoodSelectorProps) {
             onSelect={() => handleSelectMood(mood.value)}
           />
         ))}
-      </div>
 
-      {message && (
-        <p className="mt-4 text-sm text-green-600">
-          {message}
-        </p>
-      )}
+      </div>
 
     </div>
   );
