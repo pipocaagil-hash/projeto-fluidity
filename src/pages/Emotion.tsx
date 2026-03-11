@@ -1,5 +1,6 @@
 import AppLayout from "../components/layout/AppLayout";
 import MoodSelector from "../components/MoodSelector";
+import ExerciseCard from "../components/ExerciseCard";
 import { useMood } from "../hooks/useMood";
 
 /**
@@ -7,7 +8,6 @@ import { useMood } from "../hooks/useMood";
  * como está se sentindo no dia.
  */
 export default function Emotion() {
-
   const { registerMood } = useMood();
 
   return (
@@ -27,6 +27,25 @@ export default function Emotion() {
 
         {/* Mood Selector */}
         <MoodSelector registerMood={registerMood} />
+
+        {/* Exercises */}
+        <div className="space-y-4">
+
+          <h2 className="text-lg font-semibold text-gray-800">
+            Exercícios recomendados
+          </h2>
+
+          <ExerciseCard
+            title="Respiração Guiada"
+            duration="5 min"
+          />
+
+          <ExerciseCard
+            title="Meditação Rápida"
+            duration="3 min"
+          />
+
+        </div>
 
       </div>
     </AppLayout>
