@@ -2,6 +2,7 @@ import AppLayout from "../components/layout/AppLayout";
 import MoodSelector from "../components/MoodSelector";
 import ExerciseCard from "../components/ExerciseCard";
 import { useMood } from "../hooks/useMood";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 /**
@@ -9,8 +10,23 @@ import { useNavigate } from "react-router-dom";
  * como está se sentindo no dia.
  */
 export default function Emotion() {
-  const { registerMood } = useMood();
   const navigate = useNavigate();
+
+  const { registerMood, status } = useMood();
+
+  /**
+   * Observa o status da operação de registro
+   * e redireciona o usuário conforme o resultado.
+   */
+  useEffect(() => {
+    if (status === "success") {
+      navigate("/success");
+    }
+
+    if (status === "error") {
+      navigate("/error");
+    }
+  }, [status, navigate]);
 
   return (
     <AppLayout>
@@ -48,14 +64,6 @@ export default function Emotion() {
           />
 
         </div>
-
-        {/* History Button */}
-        <button
-          onClick={() => navigate("/history")}
-          className="w-full bg-green-600 text-white font-medium py-3 rounded-lg hover:bg-green-700 transition"
-        >
-          ✔ Ver histórico completo
-        </button>
 
       </div>
     </AppLayout>

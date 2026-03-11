@@ -1,7 +1,6 @@
 import { moods } from "../lib/moods";
 import MoodButton from "./MoodButton";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type { MoodType } from "../types/mood";
 
 /**
@@ -23,16 +22,12 @@ type MoodSelectorProps = {
  * Funcionalidades:
  * - Exibe opções de humor através de emojis
  * - Permite selecionar um humor
- * - Registra o humor utilizando o hook `useMood`
- * - Redireciona para telas de sucesso ou erro
+ * - Executa o registro utilizando o hook `useMood`
  *
- * @returns Interface de seleção de humor
+ * A navegação para telas de sucesso ou erro
+ * é controlada pela página Emotion.
  */
 export default function MoodSelector({ registerMood }: MoodSelectorProps) {
-  /**
-   * Controle de navegação entre páginas.
-   */
-  const navigate = useNavigate();
 
   /**
    * Estado responsável por armazenar o humor selecionado.
@@ -45,15 +40,8 @@ export default function MoodSelector({ registerMood }: MoodSelectorProps) {
    * @param mood Humor selecionado
    */
   async function handleSelectMood(mood: MoodType) {
-    try {
-      setSelectedMood(mood);
-
-      await registerMood(mood);
-
-      navigate("/success");
-    } catch {
-      navigate("/error");
-    }
+    setSelectedMood(mood);
+    await registerMood(mood);
   }
 
   return (
