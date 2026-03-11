@@ -1,29 +1,50 @@
 import type { MoodType } from "../types/mood";
 
 /**
- * Estrutura de um item de humor utilizado na interface.
- */
-type MoodOption = {
-  /** Descrição textual do humor */
-  label: string;
-
-  /** Valor utilizado para persistência no banco */
-  value: MoodType;
-
-  /** Emoji que representa visualmente o humor */
-  emoji: string;
-};
-
-/**
  * Lista de humores disponíveis na aplicação.
  *
- * Essa lista é utilizada para renderizar os botões
- * de seleção de humor no componente MoodSelector.
+ * Cada item representa um estado emocional
+ * que o usuário pode selecionar durante o
+ * registro diário de humor.
+ *
+ * Estrutura:
+ * - value: valor persistido no banco de dados
+ * - emoji: representação visual exibida na interface
+ * - label: descrição textual exibida ao usuário
  */
-export const moods: MoodOption[] = [
-  { label: "Muito feliz", value: "very_happy", emoji: "😄" },
-  { label: "Feliz", value: "happy", emoji: "🙂" },
-  { label: "Neutro", value: "neutral", emoji: "😐" },
-  { label: "Triste", value: "sad", emoji: "😔" },
-  { label: "Muito triste", value: "very_sad", emoji: "😢" },
+export const moods: {
+  value: MoodType;
+  emoji: string;
+  label: string;
+}[] = [
+  {
+    value: "happy",
+    emoji: "🙂",
+    label: "Feliz",
+  },
+  {
+    value: "sad",
+    emoji: "😢",
+    label: "Triste",
+  },
+  {
+    value: "tired",
+    emoji: "😴",
+    label: "Cansado",
+  },
+  {
+    value: "excited",
+    emoji: "😄",
+    label: "Entusiasmado",
+  },
+  {
+    value: "angry",
+    emoji: "😡",
+    label: "Irritado",
+  },
+  {
+    value: "anxious",
+    emoji: "😟",
+    label: "Ansioso",
+  },
 ];
