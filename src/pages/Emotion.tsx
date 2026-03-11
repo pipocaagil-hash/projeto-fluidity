@@ -2,6 +2,7 @@ import AppLayout from "../components/layout/AppLayout";
 import MoodSelector from "../components/MoodSelector";
 import ExerciseCard from "../components/ExerciseCard";
 import { useMood } from "../hooks/useMood";
+import { useNavigate } from "react-router-dom";
 
 /**
  * Tela principal onde o usuário registra
@@ -9,6 +10,7 @@ import { useMood } from "../hooks/useMood";
  */
 export default function Emotion() {
   const { registerMood } = useMood();
+  const navigate = useNavigate();
 
   return (
     <AppLayout>
@@ -46,6 +48,14 @@ export default function Emotion() {
           />
 
         </div>
+
+        {/* History Button */}
+        <button
+          onClick={() => navigate("/history")}
+          className="w-full bg-green-600 text-white font-medium py-3 rounded-lg hover:bg-green-700 transition"
+        >
+          ✔ Ver histórico completo
+        </button>
 
       </div>
     </AppLayout>
