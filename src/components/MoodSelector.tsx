@@ -74,10 +74,10 @@ export default function MoodSelector({ registerMood }: MoodSelectorProps) {
   }
 
   return (
-    <div>
-      <h2>Como você está hoje?</h2>
+    <div className="bg-white rounded-xl p-5 shadow-sm border">
+      <h2 className="text-lg font-semibold text-gray-800 mb-4">Como você está hoje?</h2>
 
-      <div className="flex gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {moods.map((mood) => (
           <MoodButton
             key={mood.value}
@@ -88,7 +88,7 @@ export default function MoodSelector({ registerMood }: MoodSelectorProps) {
         ))}
       </div>
 
-      {message && <p className="mt-3 text-sm text-slate-600">{message}</p>}
+      {message && <p className="mt-4 text-sm text-green-600">{message}</p>}
     </div>
   );
 }
