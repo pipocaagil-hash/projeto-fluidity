@@ -1,5 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import { Routes, Route } from "react-router-dom";
+import Emotion from "./pages/Emotion";
+import MoodSuccess from "./pages/MoodSuccess";
+import MoodError from "./pages/MoodError";
+import History from "./pages/History";
 
 /**
  * Componente raiz da aplicação.
@@ -7,18 +10,25 @@ import Dashboard from "./pages/Dashboard";
  * Responsável por configurar o roteamento principal
  * utilizando React Router.
  *
- * Atualmente a aplicação possui apenas a rota
- * principal que direciona para o Dashboard.
+ * Cada rota representa uma tela do fluxo principal
+ * de registro e acompanhamento de humor do usuário.
+ *
+ * Rotas atuais:
+ * /          → Tela de emoção (registro de humor)
+ * /success   → Tela de confirmação de registro
+ * /error     → Tela de erro no registro
+ * /history   → Tela de histórico de humor
  *
  * @returns Estrutura de rotas da aplicação
  */
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Emotion />} />
+      <Route path="/success" element={<MoodSuccess />} />
+      <Route path="/error" element={<MoodError />} />
+      <Route path="/history" element={<History />} />
+    </Routes>
   );
 }
 
