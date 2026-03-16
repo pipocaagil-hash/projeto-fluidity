@@ -15,6 +15,16 @@ export default {
         background: "#f8fafc",
         surface: "#ffffff",
         text: "#1e293b",
+
+        /**
+         * Estado de erro da interface
+         */
+        error: "#FB2C36",
+
+        /**
+         * Estado de sucesso da interface
+         */
+        success: "#008236",
       },
 
       borderRadius: {
