@@ -1,33 +1,23 @@
-import AppLayout from "../components/layout/AppLayout";
+import { Check } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-/**
- * Tela exibida quando o humor
- * é registrado com sucesso.
- */
+import StatusScreen from "../components/ui/StatusScreen";
+import StatusIcon from "../components/ui/StatusIcon";
+import Button from "../components/ui/Button";
+
 export default function MoodSuccess() {
   const navigate = useNavigate();
 
   return (
-    <AppLayout>
-      <div className="flex flex-col items-center justify-center space-y-6 text-center">
-        <div className="text-5xl text-green-500">✔</div>
-
-        <h1 className="text-xl font-semibold text-gray-800">
-          Humor registrado!
-        </h1>
-
-        <p className="text-gray-500">
-          Que bom que você registrou seu humor hoje.
-        </p>
-
-        <button
-          onClick={() => navigate("/")}
-          className="rounded-lg bg-green-600 px-6 py-3 text-white"
-        >
+    <StatusScreen
+      icon={<StatusIcon variant="success" icon={<Check size={48} />} />}
+      title="Humor registrado!"
+      descriptionPrimary="Que bom que você registrou seu humor"
+      action={
+        <Button variant="success" fullWidth onClick={() => navigate("/")}>
           Ir para Home
-        </button>
-      </div>
-    </AppLayout>
+        </Button>
+      }
+    />
   );
 }
